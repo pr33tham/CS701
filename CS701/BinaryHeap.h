@@ -1,11 +1,10 @@
 #pragma once
+#include <iostream>
 
 /*
-1. to-do definition
-2. fix index for 0, pseudo is for 1
+1. to - do definition
 */
 
-#include <iostream>
 
 template <class ElementType>
 class BinaryHeap {
@@ -24,12 +23,10 @@ protected:
 };
 
 template<class ElementType>
-BinaryHeap<ElementType>::BinaryHeap(ElementType* array, size_t sizeOfArray)
-{
+BinaryHeap<ElementType>::BinaryHeap(ElementType* array, size_t sizeOfArray) {
 	SIZE = sizeOfArray;
 	data = array;
 	BuildHeap();
-
 }
 
 template<class ElementType>
