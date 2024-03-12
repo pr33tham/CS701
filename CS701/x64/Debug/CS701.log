@@ -1,21 +1,19 @@
-﻿  BinaryHeap.cpp
-  CS701.cpp
-C:\ZD\PaceUniv\Advanced Algorithms\CS701\CS701\BinaryHeap.h(77,13): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-  (compiling source file 'CS701.cpp')
-  C:\ZD\PaceUniv\Advanced Algorithms\CS701\CS701\BinaryHeap.h(77,13):
+﻿  main.cpp
+C:\ZD\PaceUniv\Advanced Algorithms\CS701\CS701\BinaryHeap.h(101,13): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+  (compiling source file 'main.cpp')
+  C:\ZD\PaceUniv\Advanced Algorithms\CS701\CS701\BinaryHeap.h(101,13):
   the template instantiation context (the oldest one first) is
-  	C:\ZD\PaceUniv\Advanced Algorithms\CS701\CS701\CS701.cpp(13,18):
+  	C:\ZD\PaceUniv\Advanced Algorithms\CS701\CS701\main.cpp(11,18):
   	see reference to class template instantiation 'BinaryHeap<int>' being compiled
-  	C:\ZD\PaceUniv\Advanced Algorithms\CS701\CS701\BinaryHeap.h(28,1):
-  	while compiling class template member function 'BinaryHeap<int>::BinaryHeap(ElementType *,size_t)'
+  	C:\ZD\PaceUniv\Advanced Algorithms\CS701\CS701\BinaryHeap.h(36,2):
+  	while compiling class template member function 'BinaryHeap<int>::BinaryHeap(ElementType *,size_t,int)'
           with
           [
               ElementType=int
           ]
-  		C:\ZD\PaceUniv\Advanced Algorithms\CS701\CS701\CS701.cpp(13,22):
+  		C:\ZD\PaceUniv\Advanced Algorithms\CS701\CS701\main.cpp(11,22):
   		see the first reference to 'BinaryHeap<int>::BinaryHeap' in 'main'
-  	C:\ZD\PaceUniv\Advanced Algorithms\CS701\CS701\BinaryHeap.h(76,54):
+  	C:\ZD\PaceUniv\Advanced Algorithms\CS701\CS701\BinaryHeap.h(99,54):
   	while compiling class template member function 'void BinaryHeap<int>::BuildHeap(void)'
   
-  Generating Code...
   CS701.vcxproj -> C:\ZD\PaceUniv\Advanced Algorithms\CS701\x64\Debug\CS701.exe
