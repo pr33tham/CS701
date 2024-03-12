@@ -1,42 +1,62 @@
-#pragma once
-#include <iostream>
-
+#ifndef BINARYHEAP_H
+#define BINARYHEAP_H
 /*
-1. to - do definition
-*/
 
+*/
+#include <iostream>
 
 template <class ElementType>
 class BinaryHeap {
 public:
-	BinaryHeap(ElementType* array, size_t sizeOfArray);
-	void Sort();
+	BinaryHeap(int maxSize = 10 ^ 6);
+	BinaryHeap(ElementType* array, size_t sizeOfArray, int maxSize = 10 ^ 6);
+	//ElementType* Sort(void);
+	~BinaryHeap(void);
 protected:
 	ElementType* data;
-	size_t SIZE;
+	size_t currentSizeOfHeap;
+	const int MAXSIZE;
 	inline int ParentOf(int Node);
 	inline int LeftChild(int Node);
 	inline int RightChild(int Node);
-	//inline int HeapSize(void);
+	inline size_t HeapSize(void);
 	void Heapify(int Node);
 	void BuildHeap(void);
 };
 
 template<class ElementType>
-BinaryHeap<ElementType>::BinaryHeap(ElementType* array, size_t sizeOfArray) {
-	SIZE = sizeOfArray;
-	data = array;
-	BuildHeap();
+inline BinaryHeap<ElementType>::BinaryHeap(int maxSize)
+	: MAXSIZE(maxSize) {
+	data = new ElementType[MAXSIZE];
+	currentSizeOfHeap = 0;
 }
 
 template<class ElementType>
-void BinaryHeap<ElementType>::Sort(void) {
-	BuildHeap();
-	for (int i = SIZE / 2 - 1; i > 0; i--) {
-		std::swap(data[0], data[i]);
-		SIZE--;
-		Heapify(0);
+inline BinaryHeap<ElementType>::BinaryHeap(ElementType* array, size_t sizeOfArray, int maxSize)
+	: MAXSIZE(maxSize) {
+	data = new ElementType[sizeOfArray];
+	currentSizeOfHeap = sizeOfArray;
+	for (int i = 0; i < currentSizeOfHeap; i++) {
+		data[i] = array[i];
 	}
+	BuildHeap();
+}
+
+//template<class ElementType>
+//ElementType* BinaryHeap<ElementType>::Sort(void) {
+//	size_t SIZE = currentSizeOfHeap;
+//	BuildHeap();
+//	for (int i = SIZE / 2 - 1; i > 0; i--) {
+//		std::swap(data[0], data[i]);
+//		SIZE--;
+//		Heapify(0);
+//	}
+//	return data;
+//}
+
+template<class ElementType>
+inline BinaryHeap<ElementType>::~BinaryHeap(void) {
+	if (data) delete data;
 }
 
 template<class ElementType>
@@ -55,13 +75,19 @@ inline int BinaryHeap<ElementType>::RightChild(int Node) {
 }
 
 template<class ElementType>
+inline size_t BinaryHeap<ElementType>::HeapSize(void)
+{
+	return currentSizeOfHeap;
+}
+
+template<class ElementType>
 void BinaryHeap<ElementType>::Heapify(int Node) {
 	int largest = Node;
 	int left = LeftChild(Node);
 	int right = RightChild(Node);
 
-	if (left < SIZE && data[left] > data[largest]) largest = left;
-	if (right < SIZE && data[right] > data[largest]) largest = right;
+	if (left < currentSizeOfHeap && data[left] > data[largest]) largest = left;
+	if (right < currentSizeOfHeap && data[right] > data[largest]) largest = right;
 
 	if (largest != Node) {
 		std::swap(data[Node], data[largest]);
@@ -71,7 +97,9 @@ void BinaryHeap<ElementType>::Heapify(int Node) {
 
 template<class ElementType>
 inline void BinaryHeap<ElementType>::BuildHeap(void) {
-	for (int i = SIZE / 2 - 1; i >= 0; i--) {
+	currentSizeOfHeap = currentSizeOfHeap;
+	for (int i = currentSizeOfHeap / 2 - 1; i >= 0; i--) {
 		Heapify(i);
 	}
 }
+#endif // BINARYHEAP_H
