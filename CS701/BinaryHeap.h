@@ -1,7 +1,9 @@
 #ifndef BINARYHEAP_H
 #define BINARYHEAP_H
 /*
-
+* Include Header File from template
+* to-do definition
+* sort
 */
 #include <iostream>
 
@@ -12,6 +14,8 @@ public:
 	BinaryHeap(ElementType* array, size_t sizeOfArray, int maxSize = 10 ^ 6);
 	//ElementType* Sort(void);
 	~BinaryHeap(void);
+	void Add(ElementType &Item);
+	void Remove();
 protected:
 	ElementType* data;
 	size_t currentSizeOfHeap;
@@ -19,6 +23,8 @@ protected:
 	inline int ParentOf(int Node);
 	inline int LeftChild(int Node);
 	inline int RightChild(int Node);
+	inline void Insert(ElementType &newElement);
+	inline void Remove(void);
 	inline size_t HeapSize(void);
 	void Heapify(int Node);
 	void BuildHeap(void);
@@ -56,7 +62,30 @@ inline BinaryHeap<ElementType>::BinaryHeap(ElementType* array, size_t sizeOfArra
 
 template<class ElementType>
 inline BinaryHeap<ElementType>::~BinaryHeap(void) {
-	if (data) delete data;
+	if (data) delete[] data;
+}
+
+template<class ElementType>
+inline void BinaryHeap<ElementType>::Add(ElementType& Item) {
+	if (currentSizeOfHeap >= MAXSIZE) {
+		std::cerr << "Heap overflow. Increase the size of heap" << std::endl;
+		std::exit(EXIT_FAILURE);
+	}
+	Data[currentSizeOfHeap] = Item;
+	Heapify(currentSizeOfHeap++);
+;}
+
+template<class ElementType>
+inline void BinaryHeap<ElementType>::Remove() {
+	if (currentSizeOfHeap <= 0) {
+		std::cerr << "Heap underflow!" << std::endl;
+		std::exit(EXIT_FAILURE);
+	}
+	ElementType top = data[0];
+	data[0] = data[--currentSizeOfHeap];
+	Heapify(0);
+	return top;
+
 }
 
 template<class ElementType>
@@ -72,6 +101,10 @@ inline int BinaryHeap<ElementType>::LeftChild(int Node) {
 template<class ElementType>
 inline int BinaryHeap<ElementType>::RightChild(int Node) {
 	return 2 * Node + 2;
+}
+
+template<class ElementType>
+inline void BinaryHeap<ElementType>::Insert(ElementType& newElement) {
 }
 
 template<class ElementType>

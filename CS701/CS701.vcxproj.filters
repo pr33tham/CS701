@@ -23,9 +23,6 @@
     <ClInclude Include="BinaryHeap.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\..\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\__msvc_iter_core.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="BinaryHeapPriorityQueue.h">
       <Filter>Header Files</Filter>
     </ClInclude>
