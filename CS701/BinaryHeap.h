@@ -1,29 +1,32 @@
 #ifndef BINARYHEAP_H
 #define BINARYHEAP_H
+
 /*
 * Include Header File from template
-* to-do definition
+* to-do comments
 * sort
 */
+
 #include <iostream>
 
 template <class ElementType>
 class BinaryHeap {
 public:
 	BinaryHeap(int maxSize = pow(10, 6));
+	BinaryHeap(const BinaryHeap<ElementType>& otherTree);
 	BinaryHeap(ElementType* array, size_t sizeOfArray, int maxSize = pow(10, 6));
 	//ElementType* Sort(void);
 	~BinaryHeap(void);
 	inline void Insert(ElementType& newElement);
 	inline ElementType Remove(void);
-	ElementType* data;
+	inline size_t HeapSize(void);
 protected:
+	ElementType* data;
 	size_t currentSizeOfHeap;
 	const int MAXSIZE;
 	inline int ParentOf(int Node);
 	inline int LeftChild(int Node);
 	inline int RightChild(int Node);
-	inline size_t HeapSize(void);
 	void Heapify(int Node);
 	void BuildHeap(void);
 };
@@ -33,6 +36,17 @@ inline BinaryHeap<ElementType>::BinaryHeap(int maxSize)
 	: MAXSIZE(maxSize) {
 	data = new ElementType[MAXSIZE];
 	currentSizeOfHeap = 0;
+}
+
+template<class ElementType>
+inline BinaryHeap<ElementType>::BinaryHeap(const BinaryHeap<ElementType>& otherTree) 
+	:MAXSIZE(otherTree.MAXSIZE) {
+	data = new ElementType[MAXSIZE];
+	currentSizeOfHeap = otherTree.currentSizeOfHeap;
+
+	for (int i = 0; i < otherTree.currentSizeOfHeap; i++) {
+		data[i] = otherTree.data[i];
+	}
 }
 
 template<class ElementType>
