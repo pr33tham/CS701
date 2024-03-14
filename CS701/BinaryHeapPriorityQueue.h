@@ -45,6 +45,8 @@ inline ElementType BinaryHeapPriorityQueue<ElementType>::ExtractMax() {
 	PriorityQueueElement<ElementType> max = data[0];
 	data[0] = data[--SIZE];
 	Heapify(0);
+
+	return max.value;
 }
 
 template<class ElementType>
@@ -56,7 +58,7 @@ inline void BinaryHeapPriorityQueue<ElementType>::Insert(ElementType value, int 
 	SIZE++;
 	PriorityQueueElement<ElementType> newElement = { value, -1 };
 	data[SIZE - 1].value = value;
-	IncreaseKey(SIZE, priority);	
+	IncreaseKey(SIZE - 1, priority);	
 }
 
 template<class ElementType>
@@ -97,18 +99,10 @@ inline void BinaryHeapPriorityQueue<ElementType>::Heapify(int Node){
 	int largest = Node;
 	int left = LeftChild(Node);
 	int right = RightChild(Node);
-
-	std::cout << "Left for " << Node << " is " << left << std::endl;
-	std::cout << "Right for " << Node << " is " << right << std::endl;
-
 	if (left <= SIZE && data[left].priority > data[largest].priority) largest = left;
 	if (right <= SIZE && data[right].priority > data[largest].priority) largest = right;
-
-	std::cout << "Largest priority is " << largest << std::endl;
-
 	if (largest != Node) {
 		std::swap(data[Node], data[largest]);
-		std::cout << "Data swapped " << data[Node].value << " " << data[largest].value << std::endl;
 		Heapify(largest);
 	}
 }
