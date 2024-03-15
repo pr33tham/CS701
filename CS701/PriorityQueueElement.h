@@ -10,7 +10,7 @@
  *  Course: CS 701-801
  *  Name: RUTHWIK PREETHAM, SURAPARAJU
  *  Collaborators: NONE
- *  References: INTRO TO ALGORITHMS, 3RD EDITION; CPROGRAMMING.COM;
+ *  References: NONE
  *
  *  Assignment: #1
  *  Problem: Write two generic classes: BinaryHeapPriorityQueue<T> and vEBtreePriorityQueue<T>, with methods ExtractMax(), Insert(value,priority),
@@ -21,15 +21,11 @@
  *  Output:
  *
  *  Visible data fields:
- *	size_t SIZE;										//Current number of elements
+ *  ValueType value;    //Actual value for queue
+ *  int priority;       //Priotity of the value
  *
  *  Visible methods:
- *  BinaryHeapPriorityQueue(int maxSize = pow(10, 6));
- *	ElementType ExtractMax();							//Returns and removes the max prioprity element
- *	void Insert(ElementType value, int priority);		//Inserts element to the heap
- *	void IncreaseKey(int index, int newPriority);		//Increases priority
- *	~BinaryHeapPriorityQueue();							//Deletes the heap array
- *
+ *  NONE
  *
  *   Remarks
  *   -------
@@ -42,8 +38,8 @@
 
 template<typename ValueType>
 struct PriorityQueueElement {
-    ValueType value;
-    int priority;
+    ValueType value;    //Actual value for queue
+    int priority;       //Priotity of the value
 
     // Constructors
     PriorityQueueElement() : value(), priority(0) {}
