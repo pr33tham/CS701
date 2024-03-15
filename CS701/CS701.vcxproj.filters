@@ -18,12 +18,18 @@
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="vEBTree.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="BinaryHeap.h">
+    <ClInclude Include="BinaryHeapPriorityQueue.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="BinaryHeapPriorityQueue.h">
+    <ClInclude Include="PriorityQueueElement.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="vEBTree.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -35,5 +35,3 @@
 .vs/
 x64/
 CS701/x64/
-*.vcxproj
-*.vcxproj.*

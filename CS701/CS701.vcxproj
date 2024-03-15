@@ -128,10 +128,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="vEBTree.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="BinaryHeap.h" />
     <ClInclude Include="BinaryHeapPriorityQueue.h" />
+    <ClInclude Include="PriorityQueueElement.h" />
+    <ClInclude Include="vEBTree.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
