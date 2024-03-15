@@ -39,8 +39,10 @@
 
 /*
 * Test the vEB once
-* Start from page 554 - Delete
 */
+
+#define NIL std::numeric_limits<int>::min()
+
 #include <iostream>
 #include <vector>
 #include <math.h>
@@ -49,12 +51,15 @@ class vEBTree {
 public:
 	int u;
 	vEBTree(int universeSize);
-	int Minimum(vEBTree tree);
-	int Maximum(vEBTree tree);
+	~vEBTree();
 	void Insert(vEBTree tree, int value);
+	void Delete(vEBTree tree, int value);
 	int Predecessor(vEBTree tree, int value);
 	int Successor(vEBTree tree, int value);
+	int Minimum(vEBTree tree) const;
+	int Maximum(vEBTree tree) const;
 	bool Member(vEBTree tree, int value);
+	void showData();
 protected:
 	int min;
 	int max;
