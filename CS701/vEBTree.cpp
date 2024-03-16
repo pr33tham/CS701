@@ -41,10 +41,12 @@ void vEBTree::Delete(vEBTree& tree, int value) {
 		if (value == 0) tree.min = 1;
 		else tree.min = 0;
 	}
-	else if (value == tree.min) {
-		int firstCluster = Minimum(*tree.summary);
-		value = Index(firstCluster, Minimum(*tree.clusters[firstCluster]));
-		tree.min = value;
+	else {
+		if (value == tree.min) {
+			int firstCluster = Minimum(*tree.summary);
+			value = Index(firstCluster, Minimum(*tree.clusters[firstCluster]));
+			tree.min = value;
+		}
 		Delete(*tree.clusters[High(value)], Low(value));
 		if (Minimum(*tree.clusters[High(value)]) == NIL) {
 			Delete(*tree.summary, High(value));
@@ -55,9 +57,9 @@ void vEBTree::Delete(vEBTree& tree, int value) {
 					tree.max = Index(summaryMax, Maximum(*tree.clusters[summaryMax]));
 				}
 			}
-			else if (value == tree.max) {
-				tree.max = Index(High(value), Maximum(*tree.clusters[High(value)]));
-			}
+		}
+		else if (value == tree.max) {
+			tree.max = Index(High(value), Maximum(*tree.clusters[High(value)]));
 		}
 	}
 }
