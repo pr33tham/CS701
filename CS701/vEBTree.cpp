@@ -1,17 +1,13 @@
 #include "vEBTree.h"
 
-vEBTree::vEBTree(int universeSize) : u(universeSize) {
-	min = NIL;
-	max = NIL;
+vEBTree::vEBTree(int universeSize) : u(universeSize), min(NIL), max(NIL), sqrtU(ceil(sqrt(u))) {
 	if (u == 2) {
-		sqrtU = 0;
 		summary = nullptr;
 		clusters = std::vector<vEBTree*>(0, nullptr);
 	}
 	else {
-		sqrtU = ceil(sqrt(u));
 		summary = new vEBTree(sqrtU);
-		clusters = std::vector<vEBTree*>(sqrtU, nullptr);
+		clusters.resize(sqrtU, nullptr);
 		
 		for (int i = 0; i < sqrtU; i++) {
 			clusters[i] = new vEBTree(sqrtU);
@@ -19,56 +15,48 @@ vEBTree::vEBTree(int universeSize) : u(universeSize) {
 	}
 }
 
-vEBTree::~vEBTree() {
-	if (u != 2) {
-		delete summary;
-		for (int i = 0; i < sqrtU; i++) {
-			clusters[i]->~vEBTree();
-			delete clusters[i];
+void vEBTree::Insert(vEBTree& tree, int value) {
+	if (tree.min == NIL) InsertEmptyTree(tree, value);
+	else {
+		if (value < tree.min) {
+			std::swap(value, tree.min);
 		}
-	}
-}
-
-void vEBTree::Insert(vEBTree tree, int value) {
-	if (min == NIL) InsertEmptyTree(tree, value);
-	else if (value < min) {
-		std::swap(value, min);
-		if (u == 2) {
-			if (Minimum(*clusters[High(value)]) == NIL) {
-				Insert(*summary, High(value));
-				InsertEmptyTree(*clusters[High(value)], Low(value));
+		if (tree.u > 2) {
+			if (Minimum(*tree.clusters[High(value)]) == NIL) {
+				Insert(*tree.summary, High(value));
+				InsertEmptyTree(*tree.clusters[High(value)], Low(value));
 			}
-			else Insert(*clusters[High(value)], Low(value));
+			else Insert(*tree.clusters[High(value)], Low(value));
 		}
-		if (value > max) max = value;
+		if (value > tree.max) tree.max = value;
 	}
 }
 
-void vEBTree::Delete(vEBTree tree, int value) {
-	if (min == max) {
-		min = NIL;
-		max = NIL;
+void vEBTree::Delete(vEBTree& tree, int value) {
+	if (tree.min == tree.max) {
+		tree.min = NIL;
+		tree.max = NIL;
 	}
-	else if (u == 2) {
-		if (value == 0) min = 1;
-		else min = 0;
+	else if (tree.u == 2) {
+		if (value == 0) tree.min = 1;
+		else tree.min = 0;
 	}
-	else if (value == min) {
-		int firstCluster = Minimum(*summary);
-		value = Index(firstCluster, Minimum(*clusters[firstCluster]));
-		min = value;
-		Delete(*clusters[High(value)], Low(value));
-		if (Minimum(*clusters[High(value)]) == NIL) {
-			Delete(*summary, High(value));
-			if (value == max) {
-				int summaryMax = Maximum(*summary);
-				if (summaryMax == NIL) max = min;
+	else if (value == tree.min) {
+		int firstCluster = Minimum(*tree.summary);
+		value = Index(firstCluster, Minimum(*tree.clusters[firstCluster]));
+		tree.min = value;
+		Delete(*tree.clusters[High(value)], Low(value));
+		if (Minimum(*tree.clusters[High(value)]) == NIL) {
+			Delete(*tree.summary, High(value));
+			if (value == tree.max) {
+				int summaryMax = Maximum(*tree.summary);
+				if (summaryMax == NIL) tree.max = tree.min;
 				else {
-					max = Index(summaryMax, Maximum(*clusters[summaryMax]));
+					tree.max = Index(summaryMax, Maximum(*tree.clusters[summaryMax]));
 				}
 			}
-			else if (value == max) {
-				max = Index(High(value), Maximum(*clusters[High(value)]));
+			else if (value == tree.max) {
+				tree.max = Index(High(value), Maximum(*tree.clusters[High(value)]));
 			}
 		}
 	}
@@ -86,68 +74,68 @@ int vEBTree::Index(int x, int y) const {
 	return x * sqrtU + y;
 }
 
-void vEBTree::InsertEmptyTree(vEBTree tree, int value) {
-	min = value;
-	max = value;
+void vEBTree::InsertEmptyTree(vEBTree& tree, int value) {
+	tree.min = value;
+	tree.max = value;
 }
 
-int vEBTree::Predecessor(vEBTree tree, int value) {
-	if (u == 2) {
+int vEBTree::Predecessor(vEBTree& tree, int value) {
+	if (tree.u == 2) {
 		if (value == 1 && min == 0) return 0;
 		return NIL;
 	}
-	else if (max != NIL && value > max) return max;
+	else if (tree.max != NIL && value > tree.max) return tree.max;
 	else {
-		int minLow = Minimum(*clusters[High(value)]);
+		int minLow = Minimum(*tree.clusters[High(value)]);
 		if (minLow != NIL && Low(value) > minLow) {
 			int offset = Predecessor(*clusters[High(value)], Low(value));
 			return Index(High(value), offset);
 		}
 		else {
-			int predCluster = Predecessor(*summary, High(value));
+			int predCluster = Predecessor(*tree.summary, High(value));
 			if (predCluster == NIL) {
 				if (min != NIL && value > min) return min;
 				return min;
 			}
 			else {
-				int offset = Maximum(*clusters[predCluster]);
+				int offset = Maximum(*tree.clusters[predCluster]);
 				return Index(predCluster, offset);
 			}
 		}
 	}
 }
 
-int vEBTree::Successor(vEBTree tree, int value) {
-	if (u == 2) {
-		if (value == 0 && max == 1) return 1;
+int vEBTree::Successor(vEBTree& tree, int value) {
+	if (tree.u == 2) {
+		if (value == 0 && tree.max == 1) return 1;
 		return NIL;
 	}
-	else if (min != NIL && value < min) return min;
+	else if (tree.min != NIL && value < tree.min) return tree.min;
 	else {
-		int maxLow = Maximum(*clusters[High(value)]);
+		int maxLow = Maximum(*tree.clusters[High(value)]);
 		if (maxLow != NIL && Low(value) < maxLow) {
-			int offset = Successor(*clusters[High(value)], Low(value));
+			int offset = Successor(*tree.clusters[High(value)], Low(value));
 			return Index(High(value), offset);
 		}
 		else {
-			int succCluster = Successor(*summary, High(value));
+			int succCluster = Successor(*tree.summary, High(value));
 			if (succCluster == NIL) return NIL;
-			int offset = Minimum(*clusters[succCluster]);
+			int offset = Minimum(*tree.clusters[succCluster]);
 			return Index(succCluster, offset);
 		}
 	}
 }
 
-int vEBTree::Minimum(vEBTree tree) const{
-	return min;
+int vEBTree::Minimum(vEBTree& tree) const{
+	return tree.min;
 }
 
-int vEBTree::Maximum(vEBTree tree) const {
-	return max;
+int vEBTree::Maximum(vEBTree& tree) const {
+	return tree.max;
 }
 
-bool vEBTree::Member(vEBTree tree, int value) {
-	if (value == min || value == max) return true;
-	else if (u == 2) return false;
-	return Member(*clusters[High(value)], Low(value));
+bool vEBTree::Member(vEBTree& tree, int value) {
+	if (value == tree.min || value == tree.max) return true;
+	else if (tree.u == 2) return false;
+	return Member(*tree.clusters[High(value)], Low(value));
 }
