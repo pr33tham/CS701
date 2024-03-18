@@ -1,6 +1,3 @@
-#ifndef VEBTREE_H
-#define VEBTREE_H
-
 /*************************************************************************
  *
  *  Pace University
@@ -22,20 +19,30 @@
  *  Output:
  *
  *  Visible data fields:
- *
+ *	int u;												//Universe Size
+ *	int min;											//Minimum in this current tree
+ *	int max;											//Maximum in this current tree
  *
  *  Visible methods:
- *
+ *	void Insert(vEBTree& tree, int value);				//Insert value into tree
+ *	void Delete(vEBTree& tree, int value);				//Delete value from tree
+ *	int Predecessor(vEBTree& tree, int value);			//returns index of previous value 
+ *	int Successor(vEBTree& tree, int value);			//returns index of next value
+ *	int Minimum(vEBTree& tree) const;					//returns min value
+ *	int Maximum(vEBTree& tree) const;					//returns max valu
+ *	bool Member(vEBTree& tree, int value);				//returns boolean if value is in tree
  *
  *   Remarks
  *   -------
- *
+ *	
  *   PUT ALL NON-CODING ANSWERS HERE
  *
  *
  *
  *************************************************************************/
 
+#ifndef VEBTREE_H
+#define VEBTREE_H
 
 /*
 * Test the vEB once
@@ -49,26 +56,25 @@
 
 class vEBTree {
 public:
-	int u;
-	vEBTree(int universeSize);
-	void Insert(vEBTree& tree, int value);
-	void Delete(vEBTree& tree, int value);
-	int Predecessor(vEBTree& tree, int value);
-	int Successor(vEBTree& tree, int value);
-	int Minimum(vEBTree& tree) const;
-	int Maximum(vEBTree& tree) const;
-	bool Member(vEBTree& tree, int value);
-	void showData();
+	int u;												//Universe Size
+	int min;											//Minimum in this current tree
+	int max;											//Maximum in this current tree
+	vEBTree(int universeSize);							//Constructor with universe size
+	void Insert(vEBTree& tree, int value);				//Insert value into tree
+	void Delete(vEBTree& tree, int value);				//Delete value from tree
+	int Predecessor(vEBTree& tree, int value);			//returns index of previous value 
+	int Successor(vEBTree& tree, int value);			//returns index of next value
+	int Minimum(vEBTree& tree) const;					//returns min value
+	int Maximum(vEBTree& tree) const;					//returns max valu
+	bool Member(vEBTree& tree, int value);				//returns boolean if value is in tree
 protected:
-	int min;
-	int max;
-	int sqrtU;
-	vEBTree* summary;
-	std::vector<vEBTree*> clusters;
-	int High(int x) const;
-	int	Low(int x) const;
-	int Index(int x, int y) const;
-	void InsertEmptyTree(vEBTree& tree, int value);
+	int sqrtU;											//precomputed squrare of universesize
+	vEBTree* summary;									//summary vEB structure
+	std::vector<vEBTree*> clusters;						//clusters of current vEB structure
+	int High(int x) const;								//computes higher bits of value
+	int	Low(int x) const;								//computes lower bits of value
+	int Index(int x, int y) const;						//computes index
+	void InsertEmptyTree(vEBTree& tree, int value);		//Empty tree helper to insert
 };
 
 #endif // !VEBTREE_H

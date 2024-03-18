@@ -90,7 +90,7 @@ inline void BinaryHeapPriorityQueue<ElementType>::Insert(ElementType value, int 
 	}
 	SIZE++;
 	PriorityQueueElement<ElementType> newElement = { value, -1 };
-	data[SIZE - 1].value = value;
+	data[SIZE - 1] = newElement;
 	IncreaseKey(SIZE - 1, priority);	
 }
 

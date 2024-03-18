@@ -13,10 +13,7 @@
  *  References: NONE
  *
  *  Assignment: #1
- *  Problem: Write two generic classes: BinaryHeapPriorityQueue<T> and vEBtreePriorityQueue<T>, with methods ExtractMax(), Insert(value,priority),
- *	IncreaseKey(value,priority), and a constructor to create the data structure and populate it with a parametric collection of n items. (You may
- *	include other methods if you want, but these are the required.) Your methods must implement the pseudocode included in our textbook (3rd edition,
- *	Chapters 6 and 20). No points for code implementing other algorithms. Description: PUT A BRIEF DESCRIPTION HERE
+ *  Problem: Not in context with any problem
  *  Input: 
  *  Output:
  *

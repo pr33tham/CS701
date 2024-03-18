@@ -134,6 +134,7 @@
     <ClInclude Include="BinaryHeapPriorityQueue.h" />
     <ClInclude Include="PriorityQueueElement.h" />
     <ClInclude Include="vEBTree.h" />
+    <ClInclude Include="vEBTreePriorityQueue.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -32,5 +32,8 @@
     <ClInclude Include="vEBTree.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="vEBTreePriorityQueue.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
